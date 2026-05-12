@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Open Gmail Extension</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
+
+    :root {
+      --bg:       #0f1117;
+      --surface:  #181b24;
+      --border:   #2a2d3a;
+      --accent:   #4ade80;
+      --muted:    #6b7280;
+      --text:     #e2e8f0;
+      --subtext:  #94a3b8;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.75;
+      min-height: 100vh;
+      padding: 0 24px;
+    }
+
+    /* subtle grid bg */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: .35;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 660px;
+      margin: 0 auto;
+      padding: 80px 0 100px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      padding: 4px 10px;
+      margin-bottom: 28px;
+    }
+
+    .badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { opacity: 1; }
+      50%      { opacity: .3; }
+    }
+
+    h1 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -.02em;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .meta {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 56px;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    .meta span { color: var(--accent); }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 40px 0;
+    }
+
+    h2 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    p { color: var(--subtext); margin-bottom: 16px; font-size: 15px; }
+    p:last-child { margin-bottom: 0; }
+
+    .pill-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .pill-list li {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 4px 12px;
+      color: var(--subtext);
+    }
+
+    .highlight-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 6px;
+      padding: 20px 24px;
+      margin: 24px 0;
+    }
+
+    .highlight-box p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color .2s;
+    }
+
+    a:hover { border-color: var(--accent); }
+
+    .footer {
+      margin-top: 64px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer p { margin: 0; font-size: 13px; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="badge">Privacy Policy</div>
+
+    <h1>Open Gmail<br>Chrome Extension</h1>
+    <p class="meta">Last updated: <span>May 2026</span> &nbsp;·&nbsp; Version 1.0</p>
+
+    <div class="highlight-box">
+      <p>This extension does not collect, transmit, or share any personal data. Ever.</p>
+    </div>
+
+    <hr />
+
+    <h2>What data is stored</h2>
+    <p>The extension saves exactly two preferences on your device using Chrome's built-in <code>chrome.storage.sync</code> API:</p>
+    <ul class="pill-list">
+      <li>url — the URL to open (default: mail.google.com)</li>
+      <li>newTab — whether to open in a new tab (default: true)</li>
+    </ul>
+    <p>These preferences are stored locally in your browser. If you are signed into Chrome, they may sync across your own devices via your Google account — this is standard Chrome sync behaviour outside of this extension's control.</p>
+
+    <hr />
+
+    <h2>What data is NOT collected</h2>
+    <p>The extension does not collect, store, or transmit:</p>
+    <ul class="pill-list">
+      <li>browsing history</li>
+      <li>personal information</li>
+      <li>usage statistics</li>
+      <li>crash reports</li>
+      <li>identifiers of any kind</li>
+    </ul>
+    <p>There are no analytics, no tracking pixels, no third-party SDKs, and no network requests made by this extension.</p>
+
+    <hr />
+
+    <h2>Permissions</h2>
+    <p>The extension requests a single permission:</p>
+    <ul class="pill-list">
+      <li>storage — to save your two preferences above</li>
+    </ul>
+    <p>No host permissions, tab read access, or any other capability is requested.</p>
+
+    <hr />
+
+    <h2>Open source</h2>
+    <p>This extension is fully open source. You can read every line of code on <a href="https://github.com/mrpeardotnet/open-gmail-extension" target="_blank" rel="noopener">GitHub</a> and verify these claims for yourself.</p>
+
+    <hr />
+
+    <h2>Contact</h2>
+    <p>Questions? Reach out via <a href="https://www.mrpear.net" target="_blank" rel="noopener">mrpear.net</a>.</p>
+
+    <div class="footer">
+      <p>© 2026 mrpear.net</p>
+      <p><a href="https://www.mrpear.net">mrpear.net</a></p>
+    </div>
+
+  </div>
+</body>
+</html>

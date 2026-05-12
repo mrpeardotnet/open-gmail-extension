@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Open Gmail — Settings</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f6f8fa;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px 16px;
+      color: #1f2328;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #d0d7de;
+      border-radius: 12px;
+      padding: 32px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .header img { width: 36px; height: 36px; border-radius: 6px; }
+    .header h1  { font-size: 17px; font-weight: 600; }
+    .header p   { font-size: 12px; color: #656d76; margin-top: 1px; }
+
+    .field { margin-bottom: 22px; }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #1f2328;
+    }
+
+    .hint { font-size: 12px; color: #656d76; margin-bottom: 8px; }
+
+    input[type="url"] {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid #d0d7de;
+      border-radius: 7px;
+      font-size: 14px;
+      color: #1f2328;
+      background: #f6f8fa;
+      transition: border-color .15s, box-shadow .15s;
+      outline: none;
+    }
+
+    input[type="url"]:focus {
+      border-color: #0969da;
+      box-shadow: 0 0 0 3px rgba(9,105,218,.15);
+      background: #fff;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f6f8fa;
+      border: 1px solid #d0d7de;
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+
+    .toggle-label { font-size: 14px; }
+    .toggle-sub   { font-size: 12px; color: #656d76; margin-top: 2px; }
+
+    .switch { position: relative; width: 42px; height: 24px; flex-shrink: 0; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+
+    .slider {
+      position: absolute;
+      inset: 0;
+      background: #d0d7de;
+      border-radius: 24px;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .slider::before {
+      content: "";
+      position: absolute;
+      width: 18px; height: 18px;
+      left: 3px; top: 3px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform .2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,.2);
+    }
+
+    .switch input:checked + .slider { background: #1a7f37; }
+    .switch input:checked + .slider::before { transform: translateX(18px); }
+
+    .divider { border: none; border-top: 1px solid #d0d7de; margin: 24px 0; }
+
+    .actions { display: flex; gap: 10px; align-items: center; }
+
+    .btn-save {
+      flex: 1;
+      padding: 10px;
+      background: #1a7f37;
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .15s;
+    }
+
+    .btn-save:hover  { background: #116329; }
+    .btn-save:active { background: #0d4a20; }
+
+    .btn-reset {
+      padding: 10px 14px;
+      background: transparent;
+      color: #656d76;
+      border: 1px solid #d0d7de;
+      border-radius: 7px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background .15s, color .15s;
+    }
+
+    .btn-reset:hover { background: #f6f8fa; color: #1f2328; }
+
+    .toast {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      padding: 10px 14px;
+      background: #dafbe1;
+      border: 1px solid #a7f3c0;
+      border-radius: 7px;
+      font-size: 13px;
+      color: #116329;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity .25s, transform .25s;
+      pointer-events: none;
+    }
+
+    .toast.show  { opacity: 1; transform: translateY(0); }
+    .toast.error { background: #ffddd9; border-color: #f5a9a4; color: #b91c1c; }
+
+    .footer {
+      margin-top: 28px;
+      padding-top: 18px;
+      border-top: 1px solid #d0d7de;
+      text-align: center;
+      font-size: 12px;
+      color: #656d76;
+    }
+
+    .footer a {
+      color: #0969da;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <img src="icons/icon48.png" alt="" />
+      <div>
+        <h1>Open Gmail</h1>
+        <p>Extension settings</p>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="urlInput">URL to open</label>
+      <p class="hint">Any URL — defaults to Gmail.</p>
+      <input type="url" id="urlInput" placeholder="https://mail.google.com" spellcheck="false" />
+    </div>
+
+    <div class="field">
+      <div class="toggle-row">
+        <div>
+          <div class="toggle-label">Open in new tab</div>
+          <div class="toggle-sub" id="toggleHint">Currently: new tab</div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="newTabToggle" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="actions">
+      <button class="btn-save" id="saveBtn">Save settings</button>
+      <button class="btn-reset" id="resetBtn">Reset</button>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="footer">
+      Made by <a href="https://www.mrpear.net" target="_blank" rel="noopener">mrpear.net</a>
+      &nbsp;·&nbsp;
+      <a href="https://github.com/mrpeardotnet/open-gmail-extension" target="_blank" rel="noopener">Source on GitHub</a>
+    </div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
